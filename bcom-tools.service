@@ -1,0 +1,16 @@
+[Unit]
+Description=Node with Booking.com utils
+
+[Service]
+ExecStart=/deploy/app.js
+Restart=always
+User=nobody
+# Debian = nogroup, RHEL = nobody
+Group=nogroup
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=${NODE_ENV}
+WorkingDirectory=/deploy
+
+[Install]
+# runlevel 3, Set up a non-gfx multi-user shell
+WantedBy=multi-user.target

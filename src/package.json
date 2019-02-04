@@ -1,0 +1,13 @@
+{
+  "name": "bcom-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": "jaumarar",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "*",
+    "restify": "*",
+    "simple-git": "*"
+  }
+}
