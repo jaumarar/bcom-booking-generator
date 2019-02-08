@@ -1,5 +1,6 @@
 'use strict';
 const restify = require('restify');
+const repos = require('./repos');
 
 const server = restify.createServer({
     name: 'Test App',
@@ -13,8 +14,21 @@ server.use(restify.plugins.bodyParser());
 server.get(
     '/git/getRepositories',
     function onRequest(req, res, next) {
-        console.log(req, res);
-        next();
+
+        if (typeof req.query.absolutePath === 'undefined' || req.query.absolutePath === '') {
+            res.send({e: 1, m: 'An abolute path is required'});
+            next();
+        }
+
+        repos.scanRepositories(req.query.absolutePath)
+            .then((repositories) => {
+                res.send({e: 0, m: '', d: repositories});
+                next();
+            }).catch((error) => {
+                console.log(error);
+            res.send({e: 1, m: 'En error has ocurred', d: error});
+            next();
+        })
     }
 );
 
