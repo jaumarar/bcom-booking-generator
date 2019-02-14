@@ -1,6 +1,7 @@
 'use strict';
 const restify = require('restify');
 const repos = require('./repos');
+const GetRepositoryResponse = require('./../responses/GetRepositoryResponse');
 
 const server = restify.createServer({
     name: 'Test App',
@@ -10,6 +11,21 @@ const server = restify.createServer({
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
+
+var r = {
+    id: 0,
+    path: '',
+
+    branch: '',
+    ahead: 0,
+    behind: 0,
+    files: []
+};
+
+var f = {
+    type: '',
+    path: ''
+};
 
 server.get(
     '/git/getRepositories',
@@ -22,7 +38,34 @@ server.get(
 
         repos.scanRepositories(req.query.absolutePath)
             .then((repositories) => {
-                res.send({e: 0, m: '', d: repositories});
+                let response = [];
+
+                GetRepositoryResponse.Repository.filesList.forEach(
+                    /**
+                     *
+                     * @param {Response} e
+                     */
+                    function(e)  {
+e.
+                });
+                repositories.forEach((repo, i) => {
+                    let r1 = Object.assign({}, r);
+                    r1.id = repo.id;
+                    r1.path = repo.path;
+                    r1.branch = repo._info.current;
+                    r1.ahead = repo._info.ahead;
+                    r1.behind = repo._info.behind;
+
+                    repo._info.files.forEach((file, j) => {
+                        console.log(file);
+                        let f1 = Object.assign({}, f);
+                        r1.files.push(f1);
+                    });
+
+                    response.push(r1);
+                });
+
+                res.send({e: 0, m: '', d: response});
                 next();
             }).catch((error) => {
                 console.log(error);

@@ -52,6 +52,7 @@ ex.insertOrSelectRepositories = function(database, repositoryPaths) {
             repo = await repo;
 
             results.push(repo[0]);
+            break;
         }
 
         resolve(results);
