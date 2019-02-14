@@ -1,0 +1,12 @@
+{
+  "aftertax-eur" : {
+    "AmountAfterTax": 9000,
+    "DecimalPlaces": 2,
+    "CurrencyCode": "EUR"
+  },
+  "beforetax-eur" : {
+    "AmountBeforeTax": 9000,
+    "DecimalPlaces": 2,
+    "CurrencyCode": "EUR"
+  }
+}

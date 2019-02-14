@@ -1,0 +1,30 @@
+{
+  "invalid-cardcode": {
+    "CardCode": "XX",
+    "CardNumber": 4111111111111111,
+    "SeriesCode":123,
+    "ExpireDate": 1230,
+    "CardHolderName": "CC Holder Name Surname"
+  },
+  "valid-visa": {
+    "CardCode": "VI",
+    "CardNumber": 4111111111111111,
+    "SeriesCode":123,
+    "ExpireDate": 1230,
+    "CardHolderName": "CC Holder Name Surname"
+  },
+  "invalid-visa-number": {
+    "CardCode": "VI",
+    "CardNumber": "0000000000000000",
+    "SeriesCode": "000",
+    "ExpireDate": "0000",
+    "CardHolderName": "CC Holder Name Surname"
+  },
+  "invalid-visa-cardholder": {
+    "CardCode": "VI",
+    "CardNumber": 4111111111111111,
+    "SeriesCode":123,
+    "ExpireDate": 1230,
+    "CardHolderName": "-"
+  }
+}

@@ -5,21 +5,324 @@
     <title></title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="assets/bootstrap-ajax-typehead/bootstrap-typeahead.min.js"></script>
     <script src="scripts.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
     <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input id="th-companies" class="typeahead form-control" type="text" placeholder="GA" aria-describedby="emailHelp" >
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="th-companies">Email address</label>
-            <input id="th-companies" class="typeahead form-control" type="text" placeholder="Empresas" aria-describedby="emailHelp" >
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input id="th-hotels" class="typeahead form-control" type="text" placeholder="Hotels" aria-describedby="emailHelp" >
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input id="th-rooms" class="typeahead form-control" type="text" placeholder="Rooms" aria-describedby="emailHelp" >
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input id="th-products" class="typeahead form-control" type="text" placeholder="Products" aria-describedby="emailHelp" >
+                </div>
+            </div>
         </div>
+        <hr>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> HotelReservation
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off"> HotelResModify
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off"> HotelResModify - Cancellation
+            </label>
+        </div>
+
+        <span class="btn btn-light"><i class="fas fa-eye" title="View"></i></span>
+        <button type="button" class="btn btn-light"><i class="fas fa-trash-alt" title="Delete"></i></button>
+        <button type="button" class="btn btn-light"><i class="fas fa-clone" title="Clone"></i></button>
+        <hr>
+
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header">
+
+                    <div class="btn-group float-right">
+                        <button type="button" class="btn btn-light"><i class="fas fa-trash-alt" title="Delete"></i></button>
+                        <button type="button" class="btn btn-light"><i class="fas fa-clone" title="Clone"></i></button>
+                        <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#collapseOne"><i class="fas fa-minus-square" title="Collapse"></i></button>
+                    </div>
+                </div>
+
+                <div id="collapseOne" class="collapse show booking" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#RoomStays">RoomStays</a></li>
+                            <li class="nav-item"><a class="nav-link"        data-toggle="tab" href="#Services">Services</a></li>
+                            <li class="nav-item"><a class="nav-link"        data-toggle="tab" href="#ResGuests">ResGuests</a></li>
+                            <li class="nav-item"><a class="nav-link"        data-toggle="tab" href="#ResGlobalInfo">ResGlobalInfo</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="RoomStays">
+aaaa
+                            </div>
+                            <div class="tab-pane" id="Services">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Services/#hotelreservation" target="_blank">Services</a></li>
+                                        <li class="breadcrumb-item active"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Service/#ota_hotelresnotifrq-ota_hotelresmodifynotifrq" target="_blank">Service</a></li>
+                                    </ol>
+                                </nav>
+<!--
+<Service ServiceRPH='1' ServiceInventoryCode='1' ServicePricingType='4'>
+    <ServiceDetails>
+        <GuestCounts>
+            <GuestCount Count='1' />
+        </GuestCounts>
+        <TimeSpan Duration='1'/>
+        <Fees>
+            <Fee Amount='11'/>
+        </Fees>
+    </ServiceDetails>
+</Service>
+-->
+                                <div class="services">
+                                    <div class="card service">
+                                        <div class="card-body">
+                                            <div class="btn-group float-right" style="position: absolute; top: 10px; right: 10px;z-index: 1;">
+                                                <button type="button" class="btn btn-light" data-remove=".service"><i class="fas fa-trash-alt" title="Delete"></i></button>
+                                                <button type="button" class="btn btn-light" data-clone-from=".service"><i class="fas fa-clone" title="Clone"></i></button>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <!-- js cada vez que cambie un guest recalcular esto mediante un <select> -->
+                                                    <label><abbr title="Used for cross-referencing with ServiceRPH[@RPH]">ServiceRPH</abbr> [<a href="https://connect.booking.com/user_guide/site/en-US/api-reference/ServiceRPH/" target="_blank">+</a>]</label>
+                                                    <input name="Services[_ServiceRPH]" class="form-control" value="1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>ServiceInventoryCode [<a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Service/#serviceinventorycode" target="_blank">+</a>]</label>
+                                                    <select name="Services[_ServiceInventoryCode]" class="form-control" data-bcom-codes="ServiceInventoryCode">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="ResGuests">
+
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/ResGuest/" target="_blank">ResGuest</a></li>
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Profiles/" target="_blank">Profiles</a></li>
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/ProfileInfo/" target="_blank">ProfileInfo</a></li>
+                                        <li class="breadcrumb-item">Profile</li>
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Customer/#resguests" target="_blank">Customer</a></li>
+                                        <li class="breadcrumb-item active"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/PersonName/" target="_blank">PersonName</a></li>
+                                    </ol>
+                                </nav>
+
+                                <button type="button" class="btn btn-light" data-add-from=".res-guests:first()"><i class="fas fa-plus"></i> Add</button>
+
+                                <div class="res-guests">
+                                    <div class="card res-guest">
+                                        <div class="card-body">
+                                            <div class="btn-group float-right" style="position: absolute; top: 10px; right: 10px;z-index: 1;">
+                                                <button type="button" class="btn btn-light" data-remove=".res-guest"><i class="fas fa-trash-alt" title="Delete"></i></button>
+                                                <button type="button" class="btn btn-light" data-clone-from=".res-guest"><i class="fas fa-clone" title="Clone"></i></button>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label><abbr title="Used for cross-referencing with ResGuestRPH[@RPH]">ResGuestRPH</abbr><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/PersonName/" target="_blank">*</a></label>
+                                                    <input name="ResGuests[_ResGuestRPH]" class="form-control" value="1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>GivenName<a href="https://connect.booking.com/user_guide/site/en-US/api-reference/PersonName/" target="_blank">*</a></label>
+                                                    <input name="ResGuests[Profiles][ProfileInfo][Profile][Customer][PersonName][GivenName]" class="form-control" value="Guest Name 1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>Surname*</label>
+                                                    <input name="ResGuests[Profiles][ProfileInfo][Profile][Customer][PersonName][Surname]" class="form-control" value="Guest Surname 1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="ResGlobalInfo">
+<!-- ResGlobal Info -->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Comments/" target="_blank">Comments</a></li>
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Comment/" target="_blank">Comment</a></li>
+                                        <li class="breadcrumb-item active"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Text/#comment" target="_blank">Text</a></li>
+                                    </ol>
+                                </nav>
+                                <div class="form-group">
+                                    <label>Comment</label>
+                                    <textarea name="ResGlobalInfo[Comments][Comment][Text]" class="form-control"></textarea>
+                                </div>
+                                <hr>
+
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Guarantee/" target="_blank">Guarantee</a></li>
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/GuaranteesAccepted/" target="_blank">GuaranteesAccepted</a></li>
+                                        <li class="breadcrumb-item active"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/PaymentCard/" target="_blank">PaymentCard</a></li>
+                                    </ol>
+                                </nav>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>CardCode</label>
+                                        <select name="ResGlobalInfo[Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][_CardCode]" class="form-control">
+                                            <option name="VI" selected>VI - Visa</option>
+                                            <option name="AX">AX - American Express</option>
+                                            <option name="MC">MC - MasterCard</option>
+                                            <option name="MC">MC - Diners Club</option>
+                                            <option name="XX">XX - Something wrong</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label><abbr title="If all numbers are 0, something wrong">CardNumber</abbr></label>
+                                        <input name="ResGlobalInfo[Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][_CardNumber]" class="form-control" value="4111111111111111">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label><abbr title="If all numbers are 0, something wrong">SeriesCode</abbr></label>
+                                        <input name="ResGlobalInfo[Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][_SeriesCode]" class="form-control" value="123">
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label><abbr title="Format MMYY. If all numbers are 0, something wrong">ExpireDate</abbr></label>
+                                        <input name="ResGlobalInfo[Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][_ExpireDate]" class="form-control" value="1230">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label><abbr title="If '-', something wrong">CardHolderName</abbr></label>
+                                        <input name="ResGlobalInfo[Guarantee][GuaranteesAccepted][GuaranteeAccepted][PaymentCard][_CardHolderName]" class="form-control" value="CC Holder Name Surname">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Total/#resglobalinfo" target="_blank">Total</a></li>
+                                    </ol>
+                                </nav>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>AmountAfterTax</label>
+                                        <input name="ResGlobalInfo[Total][_AmountAfterTax]" class="form-control" value="5000">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>AmountBeforeTax</label>
+                                        <input name="ResGlobalInfo[Total][_AmountBeforeTax]" class="form-control" value="4500">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>DecimalPlaces</label>
+                                        <input name="ResGlobalInfo[Total][_DecimalPlaces]" class="form-control" value="2">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label>CurrencyCode</label>
+                                        <input name="ResGlobalInfo[Total][_CurrencyCode]" class="form-control" value="EUR">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/HotelReservationIDs/" target="_blank">HotelReservationIDs</a></li>
+                                        <li class="breadcrumb-item active"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/HotelReservationID/" target="_blank">HotelReservationID</a></li>
+                                    </ol>
+                                </nav>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>ResID_Value</label>
+                                        <input name="ResGlobalInfo[HotelReservationIDs][HotelReservationID][_ResID_Value]" class="form-control" value="9999999999">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>ResID_Date</label>
+                                        <input name="ResGlobalInfo[HotelReservationIDs][HotelReservationID][_ResID_Date]" class="form-control" value="2019-11-13T11:06:39">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Profiles/" target="_blank">Profiles</a></li>
+                                        <li class="breadcrumb-item"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/ProfileInfo/" target="_blank">ProfileInfo</a></li>
+                                        <li class="breadcrumb-item">Profile</li>
+                                        <li class="breadcrumb-item active"><a href="https://connect.booking.com/user_guide/site/en-US/api-reference/Customer/#resglobalinfo" target="_blank">Customer</a></li>
+                                    </ol>
+                                </nav>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>GivenName<a href="https://connect.booking.com/user_guide/site/en-US/api-reference/PersonName/" target="_blank">*</a></label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][PersonName][GivenName]" class="form-control" value="Booker Name">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Surname*</label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][PersonName][Surname]" class="form-control" value="Booker Surname">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Telephone*</label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][Telephone]" class="form-control" value="Booker Name">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Email</label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][Email]" class="form-control" value="Booker Name">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>AddressLine*</label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][Address][AddressLine]" class="form-control" value="Street Name nº 1">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>CityName*</label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][PersonName][Surname]" class="form-control" value="Valencia">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>CountryName <a href="https://connect.booking.com/user_guide/site/en-US/b_xml-countries/" target="_blank">*</a></label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][CountryName][_Code]" class="form-control" value="ES">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>CompanyName</label>
+                                        <input name="ResGlobalInfo[Profiles][ProfileInfo][Profile][Customer][CompanyName]" class="form-control" value="">
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- / ResGlobalInfo -->
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </body>
 </html>
