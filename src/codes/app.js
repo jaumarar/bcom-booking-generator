@@ -3493,22 +3493,34 @@ const $ = cheerio.load('<!DOCTYPE html>\n' +
     '</body>\n' +
     '</html>', { ignoreWhitespace: true });
 
-
-$('tbody').each((tbodyIndex, tbody) => {
-    if (tbodyIndex > 0) {
-        return;
-    }
-
-    console.log(tbody);
-
-    $(tbody).find('tr').each((trIndex, tr) => {
-        if (trIndex > 0) {
-            return;
+let config = {
+    urls: {
+        'codes-rma': {
+            'ota-amenities': {
+                php: 'RoomAmenityTypeAmenities.php'
+            }
         }
+    }
+}
+
+$('table').each((tbodyIndex, table) => {
+    if (tbodyIndex > 0) {return;}
+
+    let h2 = $(table).prev().text().toLowerCase().replace(/[\W_\ ]+/g, '');
+
+    console.log(h2);
+
+    let codes = {};
+
+    $(table).find('tbody > tr').each((trIndex, tr) => {
+
+        if (trIndex > 0) {return;}
 
         let code = $(tr.children[1]).text();
         let text = $(tr.children[3]).text();
 
-        console.log(code, text);
+        codes[code] = text;
     });
+
+    console.log(codes);
 });
