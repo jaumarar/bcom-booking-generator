@@ -1,5 +1,0 @@
-<?php
-namespace Avantio\Connectivity\Booking;
-
-class %tablename% {
-%constants%}

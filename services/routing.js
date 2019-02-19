@@ -1,7 +1,7 @@
 'use strict';
 const restify = require('restify');
 const repos = require('./repos');
-const GetRepositoryResponse = require('./../responses/GetRepositoryResponse');
+const GetRepositoryResponse = require('../responses/GetRepositoryResponse');
 
 const server = restify.createServer({
     name: 'Test App',
