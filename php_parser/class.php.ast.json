@@ -1,0 +1,23 @@
+{
+  "kind": "program",
+  "children": [
+    {
+      "kind": "namespace",
+      "name": "Avantio\\Connectivity\\Avantio",
+      "withBrackets": false,
+      "children": [
+        {
+          "kind": "class",
+          "name": "AmenityWS",
+          "isAnonymous": false,
+          "extends": null,
+          "implements": null,
+          "body": [],
+          "isAbstract": false,
+          "isFinal": false
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

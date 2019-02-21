@@ -12,6 +12,9 @@
     "simple-git": "*",
     "sqlite3": "*",
     "cheerio": "*",
-    "request": "latest"
+    "request": "latest",
+    "php-parser": "*",
+    "php-unparser": "*",
+    "xml2js": "*"
   }
 }

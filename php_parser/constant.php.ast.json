@@ -1,0 +1,14 @@
+{
+  "kind": "classconstant",
+  "items": [
+    {
+      "kind": "constant",
+      "name": "---",
+      "value": {
+        "kind": "number",
+        "value": "---"
+      }
+    }
+  ],
+  "visibility": ""
+}

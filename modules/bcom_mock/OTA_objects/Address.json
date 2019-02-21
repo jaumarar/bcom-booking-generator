@@ -1,0 +1,19 @@
+{
+  "basic": {
+    "AddressLine": [
+      "Calle"
+    ],
+    "CityName": [
+      "Valencia"
+    ],
+    "PostalCode": [
+      "46110"
+    ],
+    "CountryName": [
+      "#CountryName:es"
+    ],
+    "CompanyName": [
+      ""
+    ]
+  }
+}

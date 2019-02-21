@@ -1,0 +1,16 @@
+{
+  "jaume": {
+    "PersonName": [
+      "#PersonName:jaume"
+    ],
+    "Telephone": [
+      "#Telephone:spain"
+    ],
+    "Email": [
+      "#Email:jaume"
+    ],
+    "Address": [
+      "#Address:basic"
+    ]
+  }
+}

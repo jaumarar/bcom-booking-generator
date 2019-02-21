@@ -26,5 +26,12 @@
     "SeriesCode":123,
     "ExpireDate": 1230,
     "CardHolderName": "-"
+  },
+  "bank-transfer": {
+    "CardCode": "",
+    "CardNumber": "",
+    "SeriesCode":"",
+    "ExpireDate": "",
+    "CardHolderName": ""
   }
 }
