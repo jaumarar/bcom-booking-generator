@@ -1,0 +1,18 @@
+{
+  "basic": {
+    "RoomStay": {
+      "$": {
+        "IndexNumber": "111"
+      },
+      "RoomTypes": [
+        "#RoomType:room-28656731"
+      ],
+      "RatePlans": [
+        "#RatePlan:basic"
+      ],
+      "RoomRates": [
+        "#RoomRate:basic"
+      ]
+    }
+  }
+}

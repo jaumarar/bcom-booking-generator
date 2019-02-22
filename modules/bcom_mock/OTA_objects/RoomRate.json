@@ -1,0 +1,25 @@
+{
+  "basic": {
+    "$": {
+      "EffectiveDate": "2021-01-01",
+      "RatePlanCode": "997364"
+    },
+    "Rates": [
+      {
+        "Rate": [
+          {
+            "Total": [
+              {
+                "$": {
+                  "AmountAfterTax": "1200",
+                  "DecimalPlaces": "2",
+                  "CurrencyCode": "EUR"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

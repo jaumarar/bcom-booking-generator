@@ -1,0 +1,23 @@
+{
+  "room-28656731": {
+    "RoomType": [
+      {
+        "$": {
+          "RoomTypeCode": "28656731"
+        },
+        "RoomDescription": [
+          "#RoomDescription:basic"
+        ],
+        "Amenities": [
+          {
+            "Amenity": [
+              "Shower",
+              "Toilet",
+              "Bathroom"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

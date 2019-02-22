@@ -1,0 +1,16 @@
+{
+  "basic": {
+    "$": {
+      "Name": "Deluxe Double Room - General"
+    },
+    "Text": [
+      "This double room comes with 1 extra large double bed."
+    ],
+    "MealPlan": [
+      "No meal is included in this room rate."
+    ],
+    "MaxChildren": [
+      "0"
+    ]
+  }
+}

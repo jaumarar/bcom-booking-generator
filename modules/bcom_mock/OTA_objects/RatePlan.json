@@ -1,0 +1,17 @@
+{
+  "basic": {
+    "Commission": [
+      {
+        "CommissionPayableAmount": [
+          {
+            "$": {
+              "Amount": "1000",
+              "DecimalPlaces": "1",
+              "CurrencyCode": "EUR"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
