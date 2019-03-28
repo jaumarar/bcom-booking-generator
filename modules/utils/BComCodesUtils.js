@@ -1,11 +1,14 @@
-const URL_BCOM_DOCUMENTATION = 'https://connect.booking.com/user_guide/site/en-US/';
-
 class BComCodesUtils {
+
+    static URL_BCOM_DOCUMENTATION() {
+        return 'https://connect.booking.com/user_guide/site/en-US/';
+    }
 
     static getTableId(tableName) {
         tableName = tableName
         .toLowerCase()
         .replace(/[\s]/g, '_') // Convert spaces to _
+            .replace(/[-\/]/g, '_') // Convert certain characters to _
         .replace(/[\W]+/g, '') // Remove not alphanumeric and _ chars
         .replace(/_{2,}/g, '_') // Join duplicated _
         .replace(/^[_]+|[_]+$/g, ''); // Trim _ char
@@ -30,7 +33,7 @@ class BComCodesUtils {
     }
 
     static getAbsoluteUrl(urlCode) {
-        return URL_BCOM_DOCUMENTATION + urlCode + '/';
+        return this.URL_BCOM_DOCUMENTATION() + urlCode + '/';
     }
 }
 

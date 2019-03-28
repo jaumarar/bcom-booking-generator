@@ -20,10 +20,8 @@ class BComExtractor {
             this.processTablesAndCodes(tablesConfig[codeUrl], codeUrl)
                 .then((codes) => {
                     // For each table of codes
-                    Object.keys(tablesConfig).forEach((tableId) => {
-                        if (typeof codes.tables_found[tableId] === 'undefined') {
-                            return;
-                        }
+                    Object.keys(tablesConfig[codeUrl]).forEach((tableId) => {
+
                         let phpNamespace = tablesConfig[codeUrl][tableId].phpNamespace;
                         let phpClass     = tablesConfig[codeUrl][tableId].phpClass;
                         let phpFolder    = tablesConfig[codeUrl][tableId].phpFolder || '.';
@@ -154,6 +152,8 @@ class BComExtractor {
         return new Promise((resolve, reject) => {
             const $ = cheerio;
             let codes = {};
+            // Temporally used to search duplicates
+            let texts = {};
             let $rows = $table.find('tbody > tr');
             $rows.each((trIndex, tr) => {
                 if (typeof tr.children[codeColumnIndex] === 'undefined' || typeof tr.children[textColumnIndex] === 'undefined') {
@@ -161,7 +161,16 @@ class BComExtractor {
                 }
 
                 let code = BComCodesUtils.getCodeValue($(tr.children[codeColumnIndex]).text());
-                codes[code] = BComCodesUtils.getTextValue($(tr.children[textColumnIndex]).text());
+                let text = BComCodesUtils.getTextValue($(tr.children[textColumnIndex]).text());
+
+                // Search duplicated texts and rename them to avoid duplicity
+                if (typeof texts[text] === 'undefined') {
+                    texts[text] = 0;
+                } else {
+                    ++texts[text];
+                }
+
+                codes[code] = texts[text] === 0 ? text : text + '_' + texts[text];
             });
 
             console.info(codeUrl, 'Rows parsed in ' + tableId,  Object.keys(codes).length + '/' + $rows.length);

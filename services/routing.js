@@ -46,7 +46,7 @@ server.get(
                      * @param {Response} e
                      */
                     function(e)  {
-e.
+
                 });
                 repositories.forEach((repo, i) => {
                     let r1 = Object.assign({}, r);

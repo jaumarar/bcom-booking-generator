@@ -9,7 +9,7 @@ const BComExtractor = require("./BComExtractor");
 function getCodeUrls() {
     return new Promise((resolve, reject) => {
         let urls = [];
-        request(BComCodesUtils.URL_BCOM_DOCUMENTATION + 'api-reference/', (error, response, body) => {
+        request(BComCodesUtils.URL_BCOM_DOCUMENTATION() + 'api-reference/', (error, response, body) => {
 
             if (error) {
                 reject(urls);
@@ -40,18 +40,11 @@ function getCodeUrls() {
     });
 }
 
-/*getCodeUrls().then((urls) => {
+/*
+Deberiamos exponer las funciones que se les pasa la url y sacab los nombres de tablas etc
+getCodeUrls().then((urls) => {
     console.log(urls);
 }).catch((error) => {
-});
-*/
-
-
-
-/*getTables('codes-hac').then((tables) => {
-    console.log(tables);
-}).catch((error) => {
-
 });*/
 
 
@@ -60,24 +53,31 @@ let tablesConfig = {
         'hac_hotel_amenity_codes_ota_2014b_implemented': {
             phpClass: 'HotelAmenityOTA',
             phpNamespace: '',
-            phpFolder: './tmp'
+            phpFolder: __dirname + '/tmp'
         },
         'bookingcom_extended_ota_codes': {
             phpClass: 'HotelAmenityExtended',
             phpNamespace: '',
-            phpFolder: './tmp'
+            phpFolder: __dirname + '/tmp'
         },
         'special_service_codes': {
             phpClass: 'HotelAmenitySpecial',
             phpNamespace: '',
-            phpFolder: './tmp'
+            phpFolder: __dirname + '/tmp'
         }
     },
     'codes-rma': {
         'ota_amenities': {
             phpClass: 'RoomAmenityTypeAmenities',
             phpNamespace: '',
-            phpFolder: './tmp'
+            phpFolder: __dirname + '/tmp'
+        }
+    },
+    'codes-err': {
+        'err_error_codes_ota_2014b_implemented': {
+            phpClass: 'ErrorCodes',
+            phpNamespace: '',
+            phpFolder: __dirname + '/tmp'
         }
     }
 };
