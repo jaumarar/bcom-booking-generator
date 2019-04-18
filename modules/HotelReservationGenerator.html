@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Booking.com - Booking generator</title>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+    <script id="creditCard-4111111111111111" type="text/xml">
+        <PaymentCard CardCode='MC' CardNumber='4111111111111111' SeriesCode='123' ExpireDate='0120'><CardHolderName>Jaume Martí</CardHolderName></PaymentCard>
+    </script>
+    <script id="creditCard-4221010490781873" type="text/xml">
+        <PaymentCard CardCode='MC' CardNumber='4221010490781873' SeriesCode='123' ExpireDate='0120'><CardHolderName>Jaume Martí</CardHolderName></PaymentCard>
+    </script>
+    <script id="creditCard-BANK_TRANSFER" type="text/xml">
+        <PaymentCard CardCode='MC' CardNumber='0000000000000000'/>
+    </script>
+
+    <script id="bookingTemplate" type="text/xml">
+        <RoomStays>
+            {roomStays}
+        </RoomStays>
+        <ResGuests>
+        <ResGuest ResGuestRPH='1'><Profiles><ProfileInfo><Profile><Customer><PersonName><Surname>Jaume Martí</Surname></PersonName></Customer></Profile></ProfileInfo></Profiles></ResGuest>
+        </ResGuests>
+        <ResGlobalInfo>
+        <Comments><Comment><Text>Comentario de reserva de prueba</Text></Comment></Comments>
+        <Guarantee><GuaranteesAccepted><GuaranteeAccepted>
+            {creditCard}
+        </GuaranteeAccepted></GuaranteesAccepted></Guarantee>
+        <Total AmountAfterTax='{amount}' DecimalPlaces='2' CurrencyCode='EUR'/>
+        <HotelReservationIDs><HotelReservationID ResID_Value='{resId}' ResID_Date='2019-10-28T20:38:02'/></HotelReservationIDs>
+        <Profiles>
+            <ProfileInfo><Profile><Customer><PersonName><GivenName>Jaume</GivenName><Surname>Martí</Surname></PersonName><Telephone PhoneNumber='+34200000000'/><Email>jmarti+bcom-reservas@avantio.com</Email><Address><AddressLine>Calle</AddressLine><CityName>Valencia</CityName><PostalCode>46110</PostalCode><CountryName Code='ES'/><CompanyName/></Address></Customer></Profile></ProfileInfo>
+        </Profiles>
+        </ResGlobalInfo>
+    </script>
+
+    <script id="roomStayTemplate" type="text/xml">
+        <RoomStay IndexNumber='{roomIndex}'>
+            <RoomTypes><RoomType RoomTypeCode='{roomCode}'><RoomDescription Name='Room name'><Text>Room text</Text><MealPlan>Meal plan text</MealPlan><MaxChildren>0</MaxChildren></RoomDescription><Amenities><Amenity>Shower</Amenity></Amenities></RoomType></RoomTypes>
+            <RatePlans><RatePlan><Commission><CommissionPayableAmount Amount='648' DecimalPlaces='1' CurrencyCode='EUR'/></Commission></RatePlan></RatePlans>
+            <RoomRates>
+                {roomRates}
+            </RoomRates>
+            <GuestCounts><GuestCount Count='{guestCount}'/></GuestCounts>
+            <Total AmountAfterTax='3400' DecimalPlaces='2' CurrencyCode='EUR'/>
+            <BasicPropertyInfo HotelCode='{hotelCode}'/>
+            <ResGuestRPHs><ResGuestRPH RPH='1'/></ResGuestRPHs>
+            <SpecialRequests><SpecialRequest Name='smoking preference'><Text>Non-Smoking</Text></SpecialRequest></SpecialRequests>
+        </RoomStay>
+    </script>
+
+    <script id="roomRateTemplate" type="text/xml">
+        <RoomRate EffectiveDate='{arrivalDate}' RatePlanCode='997364'><Rates><Rate><Total AmountAfterTax='1000' DecimalPlaces='2' CurrencyCode='EUR'/></Rate></Rates></RoomRate>
+    </script>
+
+    <script id="hotelReservationsTemplate" type="text/xml">
+        <OTA_HotelResNotifRQ>
+            <HotelReservations>
+                {hotelReservations}
+            </HotelReservations>
+        </OTA_HotelResNotifRQ>
+    </script>
+    <script id="hotelReservationTemplate" type="text/xml">
+        <HotelReservation>
+            {hotelReservation}
+        </HotelReservation>
+    </script>
+
+    <script id="hotelResModifiesTemplate" type="text/xml">
+        <OTA_HotelResModifyNotifRQ>
+            <HotelResModifies>
+                {hotelReservations}
+            </HotelResModifies>
+        </OTA_HotelResModifyNotifRQ>
+    </script>
+    <script id="hotelResModifyTemplate" type="text/xml">
+        <HotelResModify>
+            {hotelReservation}
+        </HotelResModify>
+    </script>
+
+    <script>
+
+
+        var config = {
+            hotels: {
+                2570135: {
+                    idGa: 739,
+                    name: 'Villa Carolina',
+                    rooms: {
+                        257013503: {
+                            107074: 'Villa Carolina',
+                        }
+                    }
+                },
+                286567: {
+                    idGa: 739,
+                    name: 'Vienna Test Hotel 19',
+                    rooms: {
+                        28656731: {
+                            107072: 'Villa Alberta',
+                            123110: 'Villa Alberta II',
+                            242646: 'Villa Alberta III',
+                            242647: 'Villa Alberta IV',
+                            242648: 'Villa Alberta V'
+                        },
+                        28656732: {
+                            128498: 'Villa Gemma'
+                        }
+                    }
+                },
+                725510: {
+                    idGa: 1302,
+                    name: 'City Center Ap.',
+                    rooms: {
+                        72551001: {
+                            151501: 'F1A Amsterdam',
+                        },
+                        72551002: {
+                            151502: 'F1B London',
+                        },
+                        72551003: {
+                            151503: 'F2A Paris',
+                        },
+                        72551004: {
+                            151504: 'F2B Roma',
+                        },
+                        72551005: {
+                            151505: 'F2C Madrid',
+                        }
+                    }
+                }
+            }
+        };
+
+        function BComUtils($form) {
+            this.form = $form;
+        }
+
+        BComUtils.ERROR_NO_RATES = 'NO_RATES';
+        BComUtils.ERROR_NO_GUEST_COUNT = 'NO_GUEST_COUNT';
+        BComUtils.ERROR_ROOM_UNMAPPED = 'ROOM_UNMAPPED';
+        BComUtils.ERROR_CANCEL_ERROR = 'CANCEL_ERROR';
+
+        // Obtiene un template
+        BComUtils.prototype.template = function(id) {
+            return $('#' + id).html()
+        };
+
+        // Si se está forzando cierto error en el roomStay
+        BComUtils.prototype.roomStayErrorIs = function($roomStay, cte) {
+            return $roomStay.find('[name="error"] option:selected').text() === cte;
+        };
+
+        // Genera una reserva
+        BComUtils.prototype.reservation = function(){
+            return this.template('bookingTemplate')
+                .replace('{roomStays}', this.roomStays())
+                .replace('{amount}', this.roomStaysQuantity() * 10)
+                .replace('{resId}', this.resId())
+                .replace('{creditCard}', this.creditCard());
+        };
+
+        BComUtils.prototype.roomStaysQuantity = function() {
+            return this.form.find('.roomStay').length;
+        };
+
+        // Genera los roomStays de una reserva
+        BComUtils.prototype.roomStays = function() {
+            var roomStayTemplate = this.template('roomStayTemplate');
+            var roomStays = '';
+
+            var that = this;
+
+            $.each(this.form.find('.roomStay'), function() {
+                var $roomStay = $(this);
+
+                roomStays += roomStayTemplate
+                    .replace('{roomIndex}', $roomStay.find('[name="roomIndex"]').val())
+                    .replace('{roomCode}',  that.roomStayErrorIs($roomStay, BComUtils.ERROR_ROOM_UNMAPPED)   ?  0 : $roomStay.find('[name="roomCode"]').val())
+                    .replace('{hotelCode}', that.form.find('[name="hotelCode"] option:selected').val())
+                    .replace('{guestCount}', that.roomStayErrorIs($roomStay, BComUtils.ERROR_NO_GUEST_COUNT) ?  0 : 1)
+                    .replace('{roomRates}', that.roomStayErrorIs($roomStay, BComUtils.ERROR_CANCEL_ERROR)   ? '' : that.roomRates($roomStay));
+            });
+
+            return roomStays;
+        };
+
+        // Genera los roomRates de un roomStay
+        BComUtils.prototype.roomRates = function($roomStay) {
+            var roomRateTemplate = this.template('roomRateTemplate');
+
+            var roomRates = '';
+
+            var arrivalDate = $roomStay.find('[name="arrivalDate"]').val();
+            var departureDate = $roomStay.find('[name="departureDate"]').val();
+
+            if (!arrivalDate || !departureDate){
+                return '';
+            }
+            var start = new Date(arrivalDate);
+            var end = new Date(departureDate);
+            var failsafe = 0;
+            while(start <= end && failsafe < 10) {
+                roomRates += roomRateTemplate.replace('{arrivalDate}', start.toISOString().slice(0, 10));
+                failsafe++;
+                start.setDate( start.getDate() + 1);
+            }
+
+            return roomRates;
+        };
+
+        BComUtils.prototype.creditCard = function() {
+            var ccKey = this.form.find('[name="creditCard"] option:selected').text();
+
+            return this.template('creditCard-' + ccKey);
+        };
+
+        BComUtils.prototype.resId = function() {
+            return this.form.find('[name="resId"]').val();
+        };
+
+        function hotelHasChanged($form) {
+            var hotelCode = $form.find('[name="hotelCode"]').val();
+            var hotel = config.hotels[hotelCode];
+
+            var roomOptions = propertyInfo = '';
+            $.each(hotel.rooms, function(roomId, properties) {
+                roomOptions += '<option value="' + roomId + '">' + roomId + '</option>';
+                propertyInfo += roomId + '<ul>';
+                $.each(properties, function(propertyId, propertyName) {
+                    propertyInfo += '<li>(' + propertyId + ') ' + propertyName + ' ';
+                    propertyInfo += ' [<a href="https://localhost/index.php?action=DetailView&module=Propiedades&record=' + propertyId + '" target="_blank">P</a>]';
+                    propertyInfo += ' [<a href="https://localhost/index.php?module=Disponibilidad&action=DetailView&record=' + propertyId + '" target="_blank">D</a>]';
+                    propertyInfo += ' [<a href="https://localhost/index.php?module=GruposTarifas&action=ListViewTarifas&ga=' + hotel.idGa + '&propertyName=' + propertyName + '" target="_blank">R</a>]';
+                    propertyInfo += ' [<a href="https://localhost/index.php?module=GruposRO&action=ListViewReglas&ga=' + hotel.idGa + '&propertyName=' + propertyName + '" target="_blank">O</a>]';
+                    propertyInfo += ' [<a href="https://localhost/index.php?module=GruposMP&action=ListViewReglas&ga=' + hotel.idGa + '&propertyName=' + propertyName + '" target="_blank">DS</a>]</li>';
+                });
+                propertyInfo += '</ul>';
+            });
+
+            var roomCode = $form.find('[name="roomCode"]');
+
+            roomCode.html(roomOptions);
+
+            roomCode.trigger('change');
+
+            $form.find('.hotelInfo').html(propertyInfo);
+        }
+
+        function roomHasChanged($roomStay) {
+
+        }
+
+        $(function() {
+
+            $('#generate').on('click', function() {
+                $('textarea').html( generate() );
+            });
+
+            $('#generateAndSave').on('click', function() {
+                var isModify = $('[name="isModifyBooking"]').is(':checked');
+
+                var gen = generate();
+                $('textarea').html(gen);
+
+                saveText(gen, isModify ? 'modification.xml' : 'reservation.xml');
+            });
+
+            // Clonar el primer roomStay de una reserva
+            $('.addRoomStay').on('click', function() {
+                var roomStays = $(this).parents('form').find('.roomStays');
+                var roomStay = roomStays.find('.roomStay').last().clone(true);
+
+                roomStay.find('[name="roomIndex"]').val( parseInt(roomStay.find('[name="roomIndex"]').val()) + 1 );
+
+                roomStays.append(roomStay);
+
+                hotelHasChanged($(this).parents('form'));
+            });
+
+            // Borra un roomStay
+            $('.deleteRoomStay').on('click', function() {
+                $(this).parents('.roomStay').remove();
+            });
+
+            // Borra reserva
+            $('.deleteReservation').on('click', function() {
+                $(this).parents('form').remove();
+            });
+
+            // Clone reservation
+            $('#addReservation').on('click', function() {
+                $('.forms').append( $('form').first().clone(true) );
+            });
+
+            $('[name="hotelCode"]').on('change', function() {
+                hotelHasChanged($(this).parents('form'));
+            });
+
+            $('[name="roomCode"]').on('change', function() {
+                roomHasChanged($(this).parents('.roomStay'));
+            });
+
+            generateHotels();
+        });
+
+        // copy-paste, funciona
+        function saveText(text, filename){
+            var downloadLink = document.createElement('a');
+            downloadLink.download = filename;
+            downloadLink.innerHTML = 'Download File';
+            var textFileAsBlob = new Blob([text], { type: 'text/plain' })
+
+            if ('webkitURL' in window) {
+                // Chrome allows the link to be clicked without actually adding it to the DOM.
+                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            } else {
+                // Firefox requires the link to be added to the DOM before it can be clicked.
+                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                downloadLink.click(function(){
+                    document.body.removeChild(event.target);
+                });
+
+                downloadLink.style.display = 'none';
+                document.body.appendChild(downloadLink);
+            }
+            downloadLink.click();
+        }
+
+        function generate(){
+            var isModify = $('[name="isModifyBooking"]').is(':checked');
+
+            var reservationsTemplate = $(isModify ? '#hotelResModifiesTemplate' : '#hotelReservationsTemplate').html();
+            var reservationTemplate = $(isModify ? '#hotelResModifyTemplate' : '#hotelReservationTemplate').html();
+            var hotelReservations = '';
+
+            $('form').each(function() {
+                var reservation = new BComUtils($(this));
+                hotelReservations += reservationTemplate.replace('{hotelReservation}', reservation.reservation());
+            });
+
+            return reservationsTemplate.replace('{hotelReservations}', hotelReservations);
+        }
+
+        function generateHotels() {
+            var hotelOptions = '';
+
+            $.each(config.hotels, function(hotelId, hotel) {
+                hotelOptions += '<option value="' + hotelId + '">[' + hotelId + '] ' + hotel.name + ' (' + hotel.idGa + ')</option>';
+            });
+
+            var hotels = $('[name="hotelCode"]');
+
+            hotels.html(hotelOptions);
+
+            hotels.trigger('change');
+        }
+
+
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="forms">
+        <form  class="card mt-3" style="">
+            <div class="card-body table-responsive">
+                <div style="position: absolute; right: 10px; top: 10px;">
+                    <button type="button" class="btn deleteReservation"><i class="fas fa-trash"></i></button>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="width: 180px;">Error</th>
+                                <th scope="col" style="width: 95px;">Index</th>
+                                <th scope="col" style="width: 125px;">Room</th>
+                                <th scope="col" style="width: 155px;">Arrival</th>
+                                <th scope="col" style="width: 155px;">Departure</th>
+                                <th><button type="button" class="btn addRoomStay"><i class="fas fa-plus"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody class="roomStays">
+                            <tr class="roomStay">
+                                <td scope="row">
+                                    <select name="error" class="form-control">
+                                        <option>NONE</option>
+                                        <option>NO_GUEST_COUNT</option>
+                                        <option>ROOM_UNMAPPED</option>
+                                        <option>CANCEL_ERROR</option>
+                                    </select>
+                                </td>
+                                <td><input name="roomIndex" value="111" type="number" class="form-control" style="max-width: 80px;"></td>
+                                <td>
+                                    <select name="roomCode"></select>
+                                </td>
+                                <td><input name="arrivalDate" type="date" class="form-control"></td>
+                                <td><input name="departureDate" type="date" class="form-control"></td>
+                                <td><button type="button" class="btn deleteRoomStay"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-3 mt-5">
+                        <select name="hotelCode" class="form-control">
+                        </select>
+
+                        <input name="resId" class="form-control" type="number" value="400000000">
+
+                        <select name="creditCard" class="form-control">
+                            <option>4111111111111111</option>
+                            <option>4221010490781873</option>
+                            <option>BANK_TRANSFER</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="hotelInfo"></div>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <input name="isModifyBooking" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+        <label class="form-check-label" for="inlineCheckbox1">ModifyBooking</label>
+    </div>
+    <button type="button" id="addReservation" class="btn btn-primary">Add reservation</button>
+    <button type="button" id="generateAndSave" class="btn btn-success">Generate & Save</button>
+
+</div>
+</body>
+</html>
